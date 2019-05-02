@@ -4,10 +4,9 @@
       class="roundCircle"
       :key="index"
       v-for="(circle, index) in circles"
-      @click="changeCircleColor($event)"
       @mousedown="changeCircleColor($event)"
-      @mouseover="changeCircleColor($event)"
-      @mouseup="changeCircleColor($event)"
+      @mousemove="doDrag"
+      @mouseup="stopDrag"
     ></div>
   </section>
 </template>
@@ -17,19 +16,37 @@ export default {
   name: "CircleGrid",
   data() {
     return {
-      circles: 1000
+      circles: 1000,
+      dragging: false,
+      x: "no",
+      y: "no"
     };
   },
   methods: {
     changeCircleColor(event) {
       event.target.style.backgroundColor = this.randomColor();
+      this.startDrag();
     },
     randomColor() {
       return (
         "#" + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6)
       );
+    },
+    startDrag() {
+      this.dragging = true;
+    },
+    stopDrag() {
+      this.dragging = false;
+    },
+    doDrag(event) {
+      if (this.dragging) {
+        event.target.style.backgroundColor = this.randomColor();
+      }
     }
   }
+  // mounted() {
+  //   window.addEventListener("mouseup", this.stopDrag);
+  // }
 };
 </script>
 
