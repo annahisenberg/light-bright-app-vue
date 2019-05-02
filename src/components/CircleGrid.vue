@@ -1,6 +1,7 @@
 <template>
   <section>
     <div
+      :class="[buttonClicked ? restartGame : null]"
       class="roundCircle"
       :key="index"
       v-for="(circle, index) in circles"
@@ -12,6 +13,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "CircleGrid",
   data() {
@@ -23,6 +26,7 @@ export default {
       y: "no"
     };
   },
+  computed: mapState(["buttonClicked"]),
   methods: {
     changeCircleColor(event) {
       this.newColor = event.target.style.backgroundColor = this.randomColor();
@@ -46,7 +50,7 @@ export default {
     doDrag(event) {
       if (this.dragging) {
         event.target.style.backgroundColor = this.newColor;
-        event.target.style.boxShadow = `0px 0px 30px 2px ${
+        event.target.style.boxShadow = `0px 0px 20px 2px ${
           this.newColor
         }, inset 1.5px 1.5px 5px #fff`;
         event.target.style.border = `1px solid ${this.newColor}`;
@@ -76,5 +80,11 @@ export default {
 section {
   display: flex;
   flex-wrap: wrap;
+}
+
+.restartGame {
+  background-color: black;
+  box-shadow: none;
+  border: 1px solid pink;
 }
 </style>
