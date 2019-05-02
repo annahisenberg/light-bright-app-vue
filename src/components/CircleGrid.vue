@@ -6,7 +6,6 @@
       v-for="(circle, index) in circles"
       @mousedown="changeCircleColor($event)"
       @mousemove="doDrag"
-      @mouseup="stopDrag"
     ></div>
   </section>
 </template>
@@ -18,13 +17,14 @@ export default {
     return {
       circles: 1000,
       dragging: false,
+      newColor: "",
       x: "no",
       y: "no"
     };
   },
   methods: {
     changeCircleColor(event) {
-      event.target.style.backgroundColor = this.randomColor();
+      this.newColor = event.target.style.backgroundColor = this.randomColor();
       this.startDrag();
     },
     randomColor() {
@@ -40,13 +40,13 @@ export default {
     },
     doDrag(event) {
       if (this.dragging) {
-        event.target.style.backgroundColor = this.randomColor();
+        event.target.style.backgroundColor = this.newColor;
       }
     }
+  },
+  mounted() {
+    window.addEventListener("mouseup", this.stopDrag);
   }
-  // mounted() {
-  //   window.addEventListener("mouseup", this.stopDrag);
-  // }
 };
 </script>
 
