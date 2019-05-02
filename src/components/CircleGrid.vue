@@ -41,6 +41,8 @@ export default {
     doDrag(event) {
       if (this.dragging) {
         event.target.style.backgroundColor = this.newColor;
+        event.target.style.boxShadow = `0px 0px 30px 3px ${this.newColor}`;
+        console.log(event);
       }
     }
   },

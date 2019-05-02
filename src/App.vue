@@ -16,7 +16,12 @@ export default {
 </script>
 
 <style>
-/* #app {
+#app {
   background-color: black;
-} */
+}
+
+body {
+  background-color: black;
+  text-align: center;
+}
 </style>
