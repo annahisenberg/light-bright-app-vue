@@ -1,20 +1,25 @@
 <template>
   <div id="app">
-    <h1>Light-bright Colour Changing Circles</h1>
+    <section>
+      <h1>Light-bright Colour Changing Circles</h1>
+      <button @click="resetColors">Reset All</button>
+    </section>
     <CircleGrid/>
-    <!-- <directions-section></directions-section> -->
   </div>
 </template>
 
 <script>
 import CircleGrid from "./components/CircleGrid.vue";
-// import DirectionsSection from "./components/CircleGrid.vue";
 
 export default {
   name: "app",
   components: {
     CircleGrid
-    // DirectionsSection
+  },
+  methods: {
+    resetColors() {
+      console.log("clicked");
+    }
   }
 };
 </script>
