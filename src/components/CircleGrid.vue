@@ -6,6 +6,7 @@
       v-for="(circle, index) in circles"
       @mousedown="changeCircleColor($event)"
       @mousemove="doDrag"
+      @dblclick="backToBlack($event)"
     ></div>
   </section>
 </template>
@@ -25,6 +26,10 @@ export default {
   methods: {
     changeCircleColor(event) {
       this.newColor = event.target.style.backgroundColor = this.randomColor();
+      event.target.style.boxShadow = `0px 0px 30px 2px ${
+        this.newColor
+      }, inset 1.5px 1.5px 5px #fff`;
+      event.target.style.border = `1px solid ${this.newColor}`;
       this.startDrag();
     },
     randomColor() {
@@ -41,9 +46,16 @@ export default {
     doDrag(event) {
       if (this.dragging) {
         event.target.style.backgroundColor = this.newColor;
-        event.target.style.boxShadow = `0px 0px 30px 3px ${this.newColor}`;
-        console.log(event);
+        event.target.style.boxShadow = `0px 0px 30px 2px ${
+          this.newColor
+        }, inset 1.5px 1.5px 5px #fff`;
+        event.target.style.border = `1px solid ${this.newColor}`;
       }
+    },
+    backToBlack(event) {
+      event.target.style.backgroundColor = "black";
+      event.target.style.boxShadow = "none";
+      event.target.style.border = "1px solid pink";
     }
   },
   mounted() {
