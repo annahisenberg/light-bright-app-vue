@@ -1,7 +1,8 @@
 <template>
   <section>
+    <circle-divs></circle-divs>
     <div
-      :class="[buttonClicked ? restartGame : null]"
+      :class="{'restartGame' : buttonClicked}"
       class="roundCircle"
       :key="index"
       v-for="(circle, index) in circles"
@@ -14,26 +15,25 @@
 
 <script>
 import { mapState } from "vuex";
+import CircleDivs from "./Circles.vue";
 
 export default {
   name: "CircleGrid",
+  components: {
+    CircleDivs
+  },
   data() {
     return {
       circles: 1000,
       dragging: false,
-      newColor: "",
-      x: "no",
-      y: "no"
+      newColor: ""
     };
   },
   computed: mapState(["buttonClicked"]),
   methods: {
     changeCircleColor(event) {
       this.newColor = event.target.style.backgroundColor = this.randomColor();
-      event.target.style.boxShadow = `0px 0px 30px 2px ${
-        this.newColor
-      }, inset 1.5px 1.5px 5px #fff`;
-      event.target.style.border = `1px solid ${this.newColor}`;
+      this.addStyles(event);
       this.startDrag();
     },
     randomColor() {
@@ -50,16 +50,19 @@ export default {
     doDrag(event) {
       if (this.dragging) {
         event.target.style.backgroundColor = this.newColor;
-        event.target.style.boxShadow = `0px 0px 20px 2px ${
-          this.newColor
-        }, inset 1.5px 1.5px 5px #fff`;
-        event.target.style.border = `1px solid ${this.newColor}`;
+        this.addStyles(event);
       }
     },
     backToBlack(event) {
       event.target.style.backgroundColor = "black";
       event.target.style.boxShadow = "none";
       event.target.style.border = "1px solid pink";
+    },
+    addStyles(e) {
+      e.target.style.boxShadow = `0px 0px 20px 2px ${
+        this.newColor
+      }, inset 1.5px 1.5px 5px #fff`;
+      e.target.style.border = `1px solid ${this.newColor}`;
     }
   },
   mounted() {
@@ -68,7 +71,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .roundCircle {
   border-radius: 50%;
@@ -86,5 +88,8 @@ section {
   background-color: black;
   box-shadow: none;
   border: 1px solid pink;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 </style>
