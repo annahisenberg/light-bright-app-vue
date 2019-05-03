@@ -17,9 +17,7 @@ export default {
     CircleGrid
   },
   methods: {
-    resetColors() {
-      this.$store.dispatch("clickButton");
-    }
+    resetColors() {}
   }
 };
 </script>

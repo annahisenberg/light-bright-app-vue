@@ -1,8 +1,6 @@
 <template>
   <section>
-    <circle-divs></circle-divs>
     <div
-      :class="{'restartGame' : buttonClicked}"
       class="roundCircle"
       :key="index"
       v-for="(circle, index) in circles"
@@ -14,14 +12,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import CircleDivs from "./Circles.vue";
-
 export default {
   name: "CircleGrid",
-  components: {
-    CircleDivs
-  },
   data() {
     return {
       circles: 1000,
@@ -29,7 +21,6 @@ export default {
       newColor: ""
     };
   },
-  computed: mapState(["buttonClicked"]),
   methods: {
     changeCircleColor(event) {
       this.newColor = event.target.style.backgroundColor = this.randomColor();
@@ -88,8 +79,5 @@ section {
   background-color: black;
   box-shadow: none;
   border: 1px solid pink;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
 }
 </style>
