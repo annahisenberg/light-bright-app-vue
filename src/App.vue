@@ -2,9 +2,9 @@
   <div id="app">
     <section>
       <h1>Light-bright Colour Changing Circles</h1>
-      <button @click="resetColors()">Reset All</button>
+      <button @click="resetColors">Reset All</button>
     </section>
-    <CircleGrid/>
+    <CircleGrid @update-reset="resetButton" :buttonClicked="buttonClicked"/>
   </div>
 </template>
 
@@ -16,8 +16,18 @@ export default {
   components: {
     CircleGrid
   },
+  data() {
+    return {
+      buttonClicked: false
+    };
+  },
   methods: {
-    resetColors() {}
+    resetColors() {
+      this.buttonClicked = true;
+    },
+    resetButton(bool) {
+      this.buttonClicked = bool;
+    }
   }
 };
 </script>

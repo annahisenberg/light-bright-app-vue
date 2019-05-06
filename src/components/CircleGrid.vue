@@ -14,12 +14,26 @@
 <script>
 export default {
   name: "CircleGrid",
+  props: ["buttonClicked"],
   data() {
     return {
       circles: 1000,
       dragging: false,
       newColor: ""
     };
+  },
+  watch: {
+    buttonClicked: function(newVal, oldVal) {
+      if (newVal === true) {
+        let allCircles = document.getElementsByClassName("roundCircle");
+        for (let circle of allCircles) {
+          circle.style.backgroundColor = "black";
+          circle.style.boxShadow = "none";
+          circle.style.border = "1px solid pink";
+        }
+        this.$emit("update-reset", false);
+      }
+    }
   },
   methods: {
     changeCircleColor(event) {
