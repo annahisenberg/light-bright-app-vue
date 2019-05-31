@@ -79,7 +79,7 @@ export default {
 <style scoped>
 .roundCircle {
   border-radius: 50%;
-  border: 1px solid pink;
+  border: 1px outset rgba(225, 0, 255, 0.3);
   width: 30px;
   height: 30px;
 }
